@@ -18,6 +18,7 @@ GStepper2<STEPPER2WIRE> stepper5(MOTOR5_STEP_PER_ROUND * DRV5_MICROSTEPPING, DRV
 GPlanner2<STEPPER2WIRE, 5> planner;
 
 void setup() {
+    Serial.begin(SERIAL_BAUD);
 
     // Add steppers to planner
     planner.addStepper(1,stepper1);
