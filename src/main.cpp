@@ -8,6 +8,9 @@
 
 #include "Hardware/Endstops.h"
 
+#include  "Web/WebPanel.h"
+
+
 void setup() {
     Serial.begin(SERIAL_BAUD);
 
@@ -15,9 +18,13 @@ void setup() {
 
     Motors::setup();
 
+    WebPanel::SetupPanel();
+
 }
 
 void loop() {
+
+    WebPanel::PanelTick();
 
     for (uint8_t i = 1 ; i <= 5 ; i++) {
         Serial.print(endstops.getEndstop(1, Endstops::POSITIVE).pressing()); Serial.print(" ");
