@@ -23,3 +23,7 @@ void Motors::setup() {
     planner.setMaxSpeed(MAX_PLANNER_SPEED);
     planner.setAcceleration(PLANNER_ACCELERATION);
 }
+
+void Motors::tick() {
+    planner.tick();
+}

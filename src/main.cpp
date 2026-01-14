@@ -24,6 +24,8 @@ void setup() {
 
 void loop() {
 
+    Motors::tick();
+
     WebPanel::PanelTick();
 
     for (uint8_t i = 1 ; i <= 5 ; i++) {
