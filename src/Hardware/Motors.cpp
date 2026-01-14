@@ -15,15 +15,22 @@ GPlanner2<STEPPER2WIRE, 5> Motors::planner;
 
 void Motors::setup() {
     // Add steppers to planner
-    uint8_t i = 1;
-    for (auto stepper: steppers)
-        planner.addStepper(i++, stepper);
+    // uint8_t i = 1;
+    // for (auto stepper: steppers)
+    //     planner.addStepper(i++, stepper);
 
     // Setup planner
-    planner.setMaxSpeed(MAX_PLANNER_SPEED);
-    planner.setAcceleration(PLANNER_ACCELERATION);
+    // planner.setMaxSpeed(MAX_PLANNER_SPEED);
+    // planner.setAcceleration(PLANNER_ACCELERATION);
+
+    for (auto stepper: steppers) {
+        stepper.setMaxSpeed(MAX_PLANNER_SPEED);
+        stepper.setAcceleration(PLANNER_ACCELERATION);
+    }
 }
 
 void Motors::tick() {
-    planner.tick();
+    // planner.tick();
+    for (auto stepper: steppers)
+        stepper.tick();
 }
