@@ -14,6 +14,9 @@ GStepper2<STEPPER2WIRE> Motors::steppers[5] = {
 GPlanner2<STEPPER2WIRE, 5> Motors::planner;
 
 void Motors::setup() {
+    pinMode(DRV_EN, OUTPUT);
+    digitalWrite(DRV_EN, LOW);
+
     // Add steppers to planner
     // uint8_t i = 1;
     // for (auto stepper: steppers)
