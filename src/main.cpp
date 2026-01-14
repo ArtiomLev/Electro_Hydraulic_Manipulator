@@ -11,6 +11,8 @@
 void setup() {
     Serial.begin(SERIAL_BAUD);
 
+    pinMode(BUILTIN_LED, OUTPUT);
+
     Motors::setup();
 
 }
@@ -23,4 +25,11 @@ void loop() {
     }
     Serial.println();
 
+    static unsigned long blink_tmr = millis();
+    static bool blink_state = false;
+    if (millis() - blink_tmr > 500) {
+        blink_tmr = millis();
+        digitalWrite(BUILTIN_LED, blink_state);
+        blink_state = !blink_state;
+    }
 }
