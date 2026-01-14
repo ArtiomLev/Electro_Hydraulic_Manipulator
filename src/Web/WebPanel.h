@@ -1,4 +1,5 @@
 #pragma once
+#define SETT_NO_DB
 #include <SettingsGyver.h>
 
 namespace WebPanel {
