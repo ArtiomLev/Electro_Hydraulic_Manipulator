@@ -28,11 +28,12 @@ void loop() {
 
     WebPanel::PanelTick();
 
+    /*// Log endstops
     for (uint8_t i = 1 ; i <= 5 ; i++) {
         Serial.print(endstops.getEndstop(1, Endstops::POSITIVE).pressing()); Serial.print(" ");
         Serial.print(endstops.getEndstop(1, Endstops::POSITIVE).pressing()); Serial.print("    ");
     }
-    Serial.println();
+    Serial.println();*/
 
     static unsigned long blink_tmr = millis();
     static bool blink_state = false;
