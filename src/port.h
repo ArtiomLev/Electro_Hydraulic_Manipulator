@@ -11,25 +11,25 @@
 #define SHIFT_IN_CLK 32
 #define SHIFT_IN_DATA 35
 
-#define SHIFT_OUT_CLK 4
-#define SHIFT_OUT_DATA 15
-#define SHIFT_OUT_UPD 5
+#define SHIFT_OUT_CLK 15
+#define SHIFT_OUT_DATA 5
+#define SHIFT_OUT_UPD 4
 
 // Драйверы
 
-#define DRV_EN 21
+#define DRV_EN 12
 
-#define DRV1_STP 25
-#define DRV1_DIR 26
+#define DRV1_STP 22
+#define DRV1_DIR 23
 
-#define DRV2_STP 27
-#define DRV2_DIR 14
+#define DRV2_STP 18
+#define DRV2_DIR 19
 
-#define DRV3_STP 23
-#define DRV3_DIR 22
+#define DRV3_STP 16
+#define DRV3_DIR 17
 
-#define DRV4_STP 19
-#define DRV4_DIR 18
+#define DRV4_STP 26
+#define DRV4_DIR 25
 
-#define DRV5_STP 17
-#define DRV5_DIR 16
+#define DRV5_STP 14
+#define DRV5_DIR 27
