@@ -29,3 +29,5 @@
 #define WIFI_PASS "test"
 #define AP_SSID "Manipulator"
 #define AP_PASS "ManipulatorPass"
+
+#define STEPPER_DEFAULT_SPEED 1000

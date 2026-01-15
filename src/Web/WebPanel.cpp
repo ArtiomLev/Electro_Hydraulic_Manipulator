@@ -3,6 +3,8 @@
 #include "port.h"
 #include "config.h"
 
+#include "Hardware/Motors.h"
+
 void build(sets::Builder &b);
 
 SettingsGyver WebPanel::panel("Манипулятор");
@@ -69,4 +71,104 @@ void WebPanel::PanelTick() {
 }
 
 void build(sets::Builder &b) {
+    static enum PanelTabs: uint8_t {
+        MANUAL,
+        HOMING,
+        AUTO
+    } tab;
+    if (b.Tabs("Ручное;Нулевая точка;Автоматически"), &tab) {
+        b.reload();
+        // return;
+    }
+
+    switch (tab) {
+        case MANUAL:
+            if (b.beginRow("Координаты")) {
+                b.Label(String(Motors::steppers[0].pos));
+                b.Label(String(Motors::steppers[1].pos));
+                b.Label(String(Motors::steppers[2].pos));
+                b.Label(String(Motors::steppers[3].pos));
+                b.Label(String(Motors::steppers[4].pos));
+                b.endRow();
+            }
+            static int32_t motor_speed = STEPPER_DEFAULT_SPEED;
+            if (b.beginGroup("Параметры движения")) {
+                b.Slider("Скорость", 0, MAX_PLANNER_SPEED, 10, "Шагов" , &motor_speed);
+                b.endGroup();
+            }
+            if (b.beginGroup("Управление")) {
+                if (b.beginRow("База")) {
+                    if (b.Button("◀")) {
+                        Motors::steppers[0].setSpeed(motor_speed);
+                    }
+                    if (b.Button("⏹")) {
+                        Motors::steppers[0].stop();
+                    }
+                    if (b.Button("▶")) {
+                        Motors::steppers[0].setSpeed(motor_speed * -1);
+                    }
+                    b.endRow();
+                }
+                if (b.beginRow("Звено 1")) {
+                    if (b.Button("вниз")) {
+
+                        Motors::steppers[1].setSpeed(motor_speed);
+                    }
+                    if (b.Button("⏹")) {
+                        Motors::steppers[1].stop();
+                    }
+                    if (b.Button("вверх")) {
+                        Motors::steppers[1].setSpeed(motor_speed * -1);
+                    }
+                    b.endRow();
+                }
+                if (b.beginRow("Звено 2")) {
+                    if (b.Button("вниз")) {
+                        Motors::steppers[2].setSpeed(motor_speed * -1);
+                    }
+                    if (b.Button("⏹")) {
+                        Motors::steppers[2].stop();
+                    }
+                    if (b.Button("вверх")) {
+                        Motors::steppers[2].setSpeed(motor_speed);
+                    }
+                    b.endRow();
+                }
+                if (b.beginRow("Звено 3")) {
+                    if (b.Button("вниз")) {
+                        Motors::steppers[3].setSpeed(motor_speed * -1);
+                    }
+                    if (b.Button("⏹")) {
+                        Motors::steppers[3].stop();
+                    }
+                    if (b.Button("вверх")) {
+                        Motors::steppers[3].setSpeed(motor_speed);
+                    }
+                    b.endRow();
+                }
+                if (b.beginRow("Держатель")) {
+                    if (b.Button("-")) {
+                        Motors::steppers[4].setSpeed(motor_speed);
+                    }
+                    if (b.Button("⏹")) {
+                        Motors::steppers[4].stop();
+                    }
+                    if (b.Button("+")) {
+                        Motors::steppers[4].setSpeed(motor_speed * -1);
+                    }
+                    b.endRow();
+                }
+                if (b.Button("Стоп всё!")) {
+                    for (auto stepper: Motors::steppers) {
+                        stepper.stop();
+                    }
+                }
+                b.endGroup();
+            }
+            break;
+        case HOMING:
+            break;
+        case AUTO:
+            break;
+    }
 }
