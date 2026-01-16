@@ -4,6 +4,7 @@
 #include "config.h"
 
 #include "Hardware/Motors.h"
+#include "PosControl/PositionController.h"
 
 void build(sets::Builder &b);
 
@@ -84,84 +85,62 @@ void build(sets::Builder &b) {
     switch (tab) {
         case MANUAL:
             if (b.beginRow("Координаты")) {
-                b.Label(String(Motors::steppers[0].pos));
-                b.Label(String(Motors::steppers[1].pos));
-                b.Label(String(Motors::steppers[2].pos));
-                b.Label(String(Motors::steppers[3].pos));
-                b.Label(String(Motors::steppers[4].pos));
+                b.Label(String(pos_control.getPosition(1)));
+                b.Label(String(pos_control.getPosition(2)));
+                b.Label(String(pos_control.getPosition(3)));
+                b.Label(String(pos_control.getPosition(4)));
+                b.Label(String(pos_control.getPosition(5)));
                 b.endRow();
-            }
-            static int32_t motor_speed = STEPPER_DEFAULT_SPEED;
-            if (b.beginGroup("Параметры движения")) {
-                b.Slider("Скорость", 0, MAX_PLANNER_SPEED, 10, "Шагов" , &motor_speed);
-                b.endGroup();
             }
             if (b.beginGroup("Управление")) {
                 if (b.beginRow("База")) {
                     if (b.Button("◀")) {
-                        Motors::steppers[0].setSpeed(motor_speed);
-                    }
-                    if (b.Button("⏹")) {
-                        Motors::steppers[0].stop();
+                        pos_control.axisGoToRel(1, 10);
                     }
                     if (b.Button("▶")) {
-                        Motors::steppers[0].setSpeed(motor_speed * -1);
+                        pos_control.axisGoToRel(1, -10);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 1")) {
                     if (b.Button("вниз")) {
 
-                        Motors::steppers[1].setSpeed(motor_speed);
-                    }
-                    if (b.Button("⏹")) {
-                        Motors::steppers[1].stop();
+                        pos_control.axisGoToRel(2, 10);
                     }
                     if (b.Button("вверх")) {
-                        Motors::steppers[1].setSpeed(motor_speed * -1);
+                        pos_control.axisGoToRel(2, -10);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 2")) {
                     if (b.Button("вниз")) {
-                        Motors::steppers[2].setSpeed(motor_speed * -1);
-                    }
-                    if (b.Button("⏹")) {
-                        Motors::steppers[2].stop();
+                        pos_control.axisGoToRel(3, -10);
                     }
                     if (b.Button("вверх")) {
-                        Motors::steppers[2].setSpeed(motor_speed);
+                        pos_control.axisGoToRel(3, 10);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 3")) {
                     if (b.Button("вниз")) {
-                        Motors::steppers[3].setSpeed(motor_speed * -1);
-                    }
-                    if (b.Button("⏹")) {
-                        Motors::steppers[3].stop();
+                        pos_control.axisGoToRel(4, -10);
                     }
                     if (b.Button("вверх")) {
-                        Motors::steppers[3].setSpeed(motor_speed);
+                        pos_control.axisGoToRel(4, 10);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Держатель")) {
                     if (b.Button("-")) {
-                        Motors::steppers[4].setSpeed(motor_speed);
-                    }
-                    if (b.Button("⏹")) {
-                        Motors::steppers[4].stop();
+                        pos_control.axisGoToRel(5, 10);
                     }
                     if (b.Button("+")) {
-                        Motors::steppers[4].setSpeed(motor_speed * -1);
+                        pos_control.axisGoToRel(5, -10);
                     }
                     b.endRow();
                 }
                 if (b.Button("Стоп всё!")) {
-                    for (auto stepper: Motors::steppers) {
-                        stepper.stop();
-                    }
+                    pos_control.brake();
                 }
                 b.endGroup();
             }
