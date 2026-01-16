@@ -1,9 +1,9 @@
 #pragma once
 #define SETT_NO_DB
-#include <SettingsGyver.h>
+#include <SettingsGyverWS.h>
 
 namespace WebPanel {
-    extern SettingsGyver panel;
+    extern SettingsGyverWS panel;
 
     void WiFiBegin();
 

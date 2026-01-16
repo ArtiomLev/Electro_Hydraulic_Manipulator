@@ -8,7 +8,7 @@
 
 void build(sets::Builder &b);
 
-SettingsGyver WebPanel::panel("Манипулятор");
+SettingsGyverWS WebPanel::panel("Манипулятор");
 
 void WebPanel::WiFiBegin() {
     static bool wifi_setup = false;
