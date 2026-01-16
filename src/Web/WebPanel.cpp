@@ -85,11 +85,11 @@ void build(sets::Builder &b) {
     switch (tab) {
         case MANUAL:
             if (b.beginRow("Координаты")) {
-                b.Label(String(pos_control.getPosition(1)));
-                b.Label(String(pos_control.getPosition(2)));
-                b.Label(String(pos_control.getPosition(3)));
-                b.Label(String(pos_control.getPosition(4)));
-                b.Label(String(pos_control.getPosition(5)));
+                b.LabelFloat("База",pos_control.getPosition(1));
+                b.LabelFloat("Звено 1",pos_control.getPosition(2));
+                b.LabelFloat("Звено 2",pos_control.getPosition(3));
+                b.LabelFloat("Звено 3",pos_control.getPosition(4));
+                b.LabelFloat("Захват",pos_control.getPosition(5));
                 b.endRow();
             }
             if (b.beginGroup("Управление")) {
