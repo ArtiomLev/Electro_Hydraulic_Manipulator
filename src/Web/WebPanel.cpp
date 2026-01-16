@@ -84,17 +84,20 @@ void build(sets::Builder &b) {
 
     switch (tab) {
         case MANUAL:
-            if (b.beginRow("Координаты")) {
-                b.LabelFloat("База",pos_control.getPosition(1));
+            if (b.beginGroup("Координаты")) {
+                if (b.beginRow()) {
+                    b.LabelFloat("База",pos_control.getPosition(1));
+                    b.LabelFloat("Захват",pos_control.getPosition(5));
+                    b.endRow();
+                }
                 b.LabelFloat("Звено 1",pos_control.getPosition(2));
                 b.LabelFloat("Звено 2",pos_control.getPosition(3));
                 b.LabelFloat("Звено 3",pos_control.getPosition(4));
-                b.LabelFloat("Захват",pos_control.getPosition(5));
-                b.endRow();
+                b.endGroup();
             }
-            static float step = 10;
-            b.Slider("Шаг", 0.2, 20, 0.2, "мм", &step);
             if (b.beginGroup("Управление")) {
+                static float step = 10;
+                b.Slider("Шаг", 0.2, 20, 0.2, "мм", &step);
                 if (b.beginRow("База")) {
                     if (b.Button("◀")) {
                         pos_control.axisGoToRel(1, step);
@@ -105,43 +108,43 @@ void build(sets::Builder &b) {
                     b.endRow();
                 }
                 if (b.beginRow("Звено 1")) {
-                    if (b.Button("вниз")) {
+                    if (b.Button("🔽")) {
 
                         pos_control.axisGoToRel(2, step);
                     }
-                    if (b.Button("вверх")) {
+                    if (b.Button("🔼")) {
                         pos_control.axisGoToRel(2, step * -1);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 2")) {
-                    if (b.Button("вниз")) {
+                    if (b.Button("🔽")) {
                         pos_control.axisGoToRel(3, step * -1);
                     }
-                    if (b.Button("вверх")) {
+                    if (b.Button("🔼")) {
                         pos_control.axisGoToRel(3, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 3")) {
-                    if (b.Button("вниз")) {
+                    if (b.Button("🔽")) {
                         pos_control.axisGoToRel(4, step * -1);
                     }
-                    if (b.Button("вверх")) {
+                    if (b.Button("🔼")) {
                         pos_control.axisGoToRel(4, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Держатель")) {
-                    if (b.Button("-")) {
+                    if (b.Button("➖")) {
                         pos_control.axisGoToRel(5, step);
                     }
-                    if (b.Button("+")) {
+                    if (b.Button("➕")) {
                         pos_control.axisGoToRel(5, step * -1);
                     }
                     b.endRow();
                 }
-                if (b.Button("Стоп всё!")) {
+                if (b.Button("🚫 Стоп всё! 🚫")) {
                     pos_control.brake();
                 }
                 b.endGroup();
