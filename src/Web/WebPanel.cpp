@@ -92,50 +92,52 @@ void build(sets::Builder &b) {
                 b.LabelFloat("Захват",pos_control.getPosition(5));
                 b.endRow();
             }
+            static float step = 10;
+            b.Slider("Шаг", 0.2, 20, 0.2, "мм", &step);
             if (b.beginGroup("Управление")) {
                 if (b.beginRow("База")) {
                     if (b.Button("◀")) {
-                        pos_control.axisGoToRel(1, 10);
+                        pos_control.axisGoToRel(1, step);
                     }
                     if (b.Button("▶")) {
-                        pos_control.axisGoToRel(1, -10);
+                        pos_control.axisGoToRel(1, step * -1);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 1")) {
                     if (b.Button("вниз")) {
 
-                        pos_control.axisGoToRel(2, 10);
+                        pos_control.axisGoToRel(2, step);
                     }
                     if (b.Button("вверх")) {
-                        pos_control.axisGoToRel(2, -10);
+                        pos_control.axisGoToRel(2, step * -1);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 2")) {
                     if (b.Button("вниз")) {
-                        pos_control.axisGoToRel(3, -10);
+                        pos_control.axisGoToRel(3, step * -1);
                     }
                     if (b.Button("вверх")) {
-                        pos_control.axisGoToRel(3, 10);
+                        pos_control.axisGoToRel(3, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 3")) {
                     if (b.Button("вниз")) {
-                        pos_control.axisGoToRel(4, -10);
+                        pos_control.axisGoToRel(4, step * -1);
                     }
                     if (b.Button("вверх")) {
-                        pos_control.axisGoToRel(4, 10);
+                        pos_control.axisGoToRel(4, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Держатель")) {
                     if (b.Button("-")) {
-                        pos_control.axisGoToRel(5, 10);
+                        pos_control.axisGoToRel(5, step);
                     }
                     if (b.Button("+")) {
-                        pos_control.axisGoToRel(5, -10);
+                        pos_control.axisGoToRel(5, step * -1);
                     }
                     b.endRow();
                 }
