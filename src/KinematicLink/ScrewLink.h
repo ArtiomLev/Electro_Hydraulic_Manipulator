@@ -12,11 +12,11 @@ private:
     float mm_deg;
 
 public:
-    explicit ScrewLink(const float screw_step) : BaseLink(), screw_step(screw_step), mm_deg(screw_step / 360) {
+    explicit ScrewLink(const float screw_step) : BaseLink(), screw_step(screw_step), mm_deg(screw_step / 360.0f) {
     };
 
     ScrewLink(const float screw_step, BaseLink *previos_link) : BaseLink(previos_link), screw_step(screw_step),
-                                                                mm_deg(screw_step / 360) {
+                                                                mm_deg(screw_step / 360.0f) {
     };
 
     /**
