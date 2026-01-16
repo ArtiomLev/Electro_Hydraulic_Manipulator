@@ -38,10 +38,9 @@ void WebPanel::WiFiBegin() {
         wifi_setup = true;
 #elif WIFI_MODE == 2
         WiFi.mode(WIFI_AP);
-        WiFi.softAP(AP_SSID, AP_PASS);
-        {
-            for (byte n1 = 0 ; n1 < 2 ; n1++) {
-                for (byte n2 = 0 ; n2 < 2 ; n2++) {
+        WiFi.softAP(AP_SSID, AP_PASS); {
+            for (byte n1 = 0; n1 < 2; n1++) {
+                for (byte n2 = 0; n2 < 2; n2++) {
                     digitalWrite(BUILTIN_LED, HIGH);
                     delay(100);
                     digitalWrite(BUILTIN_LED, LOW);
@@ -75,29 +74,30 @@ void build(sets::Builder &b) {
     static enum PanelTabs: uint8_t {
         MANUAL,
         HOMING,
-        AUTO
+        PROGRAMM
     } tab = MANUAL;
-    if (b.Tabs("Ручное;Нулевая точка;Автоматически", &tab)) {
+    if (b.Tabs("Ручное;Нулевая точка;Программа", &tab)) {
         b.reload();
         return;
     }
 
+    if (b.beginGroup("Координаты")) {
+        if (b.beginRow()) {
+            b.LabelFloat("База", pos_control.getPosition(1));
+            b.LabelFloat("Захват", pos_control.getPosition(5));
+            b.endRow();
+        }
+        b.LabelFloat("Звено 1", pos_control.getPosition(2));
+        b.LabelFloat("Звено 2", pos_control.getPosition(3));
+        b.LabelFloat("Звено 3", pos_control.getPosition(4));
+        b.endGroup();
+    }
+
     switch (tab) {
         case MANUAL:
-            if (b.beginGroup("Координаты")) {
-                if (b.beginRow()) {
-                    b.LabelFloat("База",pos_control.getPosition(1));
-                    b.LabelFloat("Захват",pos_control.getPosition(5));
-                    b.endRow();
-                }
-                b.LabelFloat("Звено 1",pos_control.getPosition(2));
-                b.LabelFloat("Звено 2",pos_control.getPosition(3));
-                b.LabelFloat("Звено 3",pos_control.getPosition(4));
-                b.endGroup();
-            }
             if (b.beginGroup("Управление")) {
-                static float step = 10;
-                b.Slider("Шаг", 0.2, 20, 0.2, "мм", &step);
+                static float step = 5;
+                b.Slider("Шаг", 0.5, 20, 0.5, "мм", &step);
                 if (b.beginRow("База")) {
                     if (b.Button("◀")) {
                         pos_control.axisGoToRel(1, step);
@@ -109,7 +109,6 @@ void build(sets::Builder &b) {
                 }
                 if (b.beginRow("Звено 1")) {
                     if (b.Button("🔽")) {
-
                         pos_control.axisGoToRel(2, step);
                     }
                     if (b.Button("🔼")) {
@@ -152,7 +151,7 @@ void build(sets::Builder &b) {
             break;
         case HOMING:
             break;
-        case AUTO:
+        case PROGRAMM:
             break;
     }
 }
