@@ -14,11 +14,11 @@ public:
     };
 
     float forward(const float input) override {
-        return input * multiplier;
+        return input / static_cast<float>(multiplier);
     };
 
     float backward(const float output) override {
-        return output / multiplier;
+        return output * static_cast<float>(multiplier);
     }
 
     uint8_t getMultiplier() const { return multiplier; }
