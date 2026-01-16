@@ -35,6 +35,17 @@ void loop() {
     }
     Serial.println();*/
 
+    // Log stepper pos
+    static unsigned long motor_log_tmr = millis();
+    if (millis() - motor_log_tmr >= 500) {
+        motor_log_tmr = millis();
+        for (auto stepper: Motors::steppers) {
+            Serial.print(stepper.pos);
+            Serial.print("\t");
+        }
+        Serial.println("");
+    }
+
     static unsigned long blink_tmr = millis();
     static bool blink_state = false;
     if (millis() - blink_tmr > 500) {
