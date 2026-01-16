@@ -150,6 +150,14 @@ void build(sets::Builder &b) {
             }
             break;
         case HOMING:
+            if (b.Button("Сбросить координаты")) {
+                pos_control.reset();
+            }
+            if (b.Button("Идти в ноль")) {
+                for (uint8_t i = 1; i <= 5; i++) {
+                    pos_control.axisGoTo(i, 0);
+                }
+            }
             break;
         case PROGRAMM:
             break;
