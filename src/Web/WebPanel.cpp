@@ -76,10 +76,10 @@ void build(sets::Builder &b) {
         MANUAL,
         HOMING,
         AUTO
-    } tab;
-    if (b.Tabs("Ручное;Нулевая точка;Автоматически"), &tab) {
+    } tab = MANUAL;
+    if (b.Tabs("Ручное;Нулевая точка;Автоматически", &tab)) {
         b.reload();
-        // return;
+        return;
     }
 
     switch (tab) {
