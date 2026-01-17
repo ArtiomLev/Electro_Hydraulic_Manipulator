@@ -23,7 +23,10 @@ public:
     float getPosition(uint8_t axis);
 
     void brake();
+
+    static bool axisIdle(uint8_t axis);
+
+    static bool systemIdle();
 };
 
 extern PositionController pos_control;
-

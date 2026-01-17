@@ -35,9 +35,8 @@ bool PositionController::isReset() const {
 
 void PositionController::setAxisPos(const uint8_t axis) const {
     const int32_t stepper_pos = static_cast<int32_t>(screw_link.backward(positions[axis]));
-    Motors::steppers[axis].setTarget(stepper_pos * (invert[axis]? -1 : 1));
+    Motors::steppers[axis].setTarget(stepper_pos * (invert[axis] ? -1 : 1));
 }
-
 
 void PositionController::axisGoTo(uint8_t axis, const float position) {
     if (!isReset()) reset();
@@ -55,7 +54,6 @@ void PositionController::axisGoToRel(uint8_t axis, float distance) {
     setAxisPos(axis);
 }
 
-
 float PositionController::getPosition(uint8_t axis) {
     if (!isReset()) reset();
     axis--;
@@ -67,6 +65,19 @@ void PositionController::brake() {
     for (auto stepper: Motors::steppers)
         stepper.brake();
     homing = false;
+}
+
+bool PositionController::axisIdle(uint8_t axis) {
+    axis--;
+    if (axis < 0 || axis >= 5) return true;
+    return Motors::steppers[axis].ready();
+}
+
+bool PositionController::systemIdle() {
+    for (auto stepper: Motors::steppers) {
+        if (!stepper.ready()) return false;
+    }
+    return true;
 }
 
 PositionController pos_control;
