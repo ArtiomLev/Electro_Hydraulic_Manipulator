@@ -24,8 +24,11 @@ PositionController::PositionController() : positions{
 }
 
 void PositionController::reset() {
-    for (auto &pos: positions)
-        pos = 0.0f;
+    for (uint8_t i = 1 ; i <= 5 ; i++) {
+        positions[i] = 0;
+        Motors::steppers[i].reset();
+        Motors::steppers[i].setCurrent(0);
+    }
     homing = true;
 }
 
@@ -72,12 +75,12 @@ void PositionController::brake() {
 bool PositionController::axisIdle(uint8_t axis) {
     axis--;
     if (axis < 0 || axis >= 5) return true;
-    return Motors::steppers[axis].ready();
+    return Motors::steppers[axis].getStatus() == 0;
 }
 
 bool PositionController::systemIdle() {
-    for (auto stepper: Motors::steppers) {
-        if (!stepper.ready()) return false;
+    for (uint8_t i = 1 ; i <= 5 ; i++) {
+        if (!axisIdle(i)) return false;
     }
     return true;
 }
