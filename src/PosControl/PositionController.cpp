@@ -34,8 +34,10 @@ bool PositionController::isReset() const {
 }
 
 void PositionController::setAxisPos(const uint8_t axis) const {
-    const int32_t stepper_pos = static_cast<int32_t>(screw_link.backward(positions[axis]));
+    const float pos = positions[axis];
+    const int32_t stepper_pos = static_cast<int32_t>(screw_link.backward(pos));
     Motors::steppers[axis].setTarget(stepper_pos * (invert[axis] ? -1 : 1));
+    Serial.printf("\nFor axis %d set target %f mm = %d stp\n", axis, pos, stepper_pos);
 }
 
 void PositionController::axisGoTo(uint8_t axis, const float position) {
