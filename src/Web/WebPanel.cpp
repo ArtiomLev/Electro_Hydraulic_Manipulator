@@ -87,9 +87,12 @@ void build(sets::Builder &b) {
             b.LabelFloat("Захват", pos_control.getPosition(5));
             b.endRow();
         }
-        b.LabelFloat("Звено 1", pos_control.getPosition(2));
-        b.LabelFloat("Звено 2", pos_control.getPosition(3));
-        b.LabelFloat("Звено 3", pos_control.getPosition(4));
+        if (b.beginRow()) {
+            b.LabelFloat("Звено 1", pos_control.getPosition(2));
+            b.LabelFloat("Звено 2", pos_control.getPosition(3));
+            b.LabelFloat("Звено 3", pos_control.getPosition(4));
+            b.endRow();
+        }
         b.endGroup();
     }
 
@@ -160,6 +163,20 @@ void build(sets::Builder &b) {
             }
             break;
         case PROGRAMM:
+            static enum ProgTabs: uint8_t {
+            EDIT,
+            RUN
+            } prog_tabs = RUN;
+            if (b.Tabs("Редактирование;Работа", &prog_tabs)) {
+                b.reload();
+                return;
+            }
+            switch (prog_tabs) {
+                case EDIT:
+                    break;
+                case RUN:
+                    break;
+            }
             break;
     }
 }
