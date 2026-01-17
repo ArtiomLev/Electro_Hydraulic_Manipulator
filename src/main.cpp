@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <LittleFS.h>
 
 #include "port.h"
 #include "config.h"
@@ -13,6 +14,12 @@
 
 void setup() {
     Serial.begin(SERIAL_BAUD);
+
+#ifdef ESP32
+    LittleFS.begin(true); // format on fail
+#else
+    LittleFS.begin();
+#endif
 
     pinMode(BUILTIN_LED, OUTPUT);
 
