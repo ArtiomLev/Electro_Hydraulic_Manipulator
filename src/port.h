@@ -19,17 +19,17 @@
 
 #define DRV_EN 12
 
-#define DRV1_STP 22
-#define DRV1_DIR 23
+#define DRV5_STP 22
+#define DRV5_DIR 23
 
-#define DRV2_STP 18
-#define DRV2_DIR 19
+#define DRV4_STP 18
+#define DRV4_DIR 19
 
 #define DRV3_STP 16
 #define DRV3_DIR 17
 
-#define DRV4_STP 26
-#define DRV4_DIR 25
+#define DRV2_STP 26
+#define DRV2_DIR 25
 
-#define DRV5_STP 14
-#define DRV5_DIR 27
+#define DRV1_STP 14
+#define DRV1_DIR 27
