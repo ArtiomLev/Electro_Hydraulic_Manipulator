@@ -3,7 +3,7 @@
 #include "../Hardware/Motors.h"
 
 #include "KinematicLink/KinematicLink.h"
-MultistepLink multistep_link(16);
+MultistepLink multistep_link(8);
 DegStepLink deg_step_link(200, &multistep_link);
 ScrewLink screw_link(2, &deg_step_link);
 
