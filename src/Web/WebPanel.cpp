@@ -99,51 +99,51 @@ void build(sets::Builder &b) {
                 static float step = 5;
                 b.Slider("Шаг", 0.5, 20, 0.5, "мм", &step);
                 if (b.beginRow("База")) {
-                    if (b.Button("◀")) {
-                        pos_control.axisGoToRel(1, step);
-                    }
-                    if (b.Button("▶")) {
+                    if (b.Button("↺")) {
                         pos_control.axisGoToRel(1, step * -1);
+                    }
+                    if (b.Button("↻")) {
+                        pos_control.axisGoToRel(1, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 1")) {
-                    if (b.Button("🔽")) {
-                        pos_control.axisGoToRel(2, step);
-                    }
-                    if (b.Button("🔼")) {
+                    if (b.Button("▼")) {
                         pos_control.axisGoToRel(2, step * -1);
+                    }
+                    if (b.Button("▲")) {
+                        pos_control.axisGoToRel(2, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 2")) {
-                    if (b.Button("🔽")) {
+                    if (b.Button("▼")) {
                         pos_control.axisGoToRel(3, step * -1);
                     }
-                    if (b.Button("🔼")) {
+                    if (b.Button("▲")) {
                         pos_control.axisGoToRel(3, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 3")) {
-                    if (b.Button("🔽")) {
+                    if (b.Button("▼")) {
                         pos_control.axisGoToRel(4, step * -1);
                     }
-                    if (b.Button("🔼")) {
+                    if (b.Button("▲")) {
                         pos_control.axisGoToRel(4, step);
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Держатель")) {
                     if (b.Button("➖")) {
-                        pos_control.axisGoToRel(5, step);
+                        pos_control.axisGoToRel(5, step * -1);
                     }
                     if (b.Button("➕")) {
-                        pos_control.axisGoToRel(5, step * -1);
+                        pos_control.axisGoToRel(5, step);
                     }
                     b.endRow();
                 }
-                if (b.Button("🚫 Стоп всё! 🚫")) {
+                if (b.Button("🛑 Стоп всё! 🛑")) {
                     pos_control.brake();
                 }
                 b.endGroup();

@@ -7,7 +7,20 @@ MultistepLink multistep_link(16);
 DegStepLink deg_step_link(200, &multistep_link);
 ScrewLink screw_link(2, &deg_step_link);
 
-PositionController::PositionController() : positions{} {
+PositionController::PositionController() : positions{
+                                               0,
+                                               0,
+                                               0,
+                                               0,
+                                               0
+                                           },
+                                           invert{
+                                               true,
+                                               true,
+                                               false,
+                                               false,
+                                               true
+                                           } {
 }
 
 void PositionController::reset() {
@@ -21,8 +34,8 @@ bool PositionController::isReset() const {
 }
 
 void PositionController::setAxisPos(const uint8_t axis) const {
-    const int32_t stepper_pos = screw_link.backward(positions[axis]);
-    Motors::steppers[axis].setTarget(stepper_pos);
+    const int32_t stepper_pos = static_cast<int32_t>(screw_link.backward(positions[axis]));
+    Motors::steppers[axis].setTarget(stepper_pos * (invert[axis]? -1 : 1));
 }
 
 

@@ -5,6 +5,7 @@ class PositionController {
 private:
     bool homing = false;
     float positions[5];
+    bool invert[5];
 
     void setAxisPos(uint8_t axis) const;
 
