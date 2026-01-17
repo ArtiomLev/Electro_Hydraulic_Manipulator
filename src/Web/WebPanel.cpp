@@ -104,50 +104,61 @@ void build(sets::Builder &b) {
                 if (b.beginRow("База")) {
                     if (b.Button("↺")) {
                         pos_control.axisGoToRel(1, step * -1);
+                        b.reload();
                     }
                     if (b.Button("↻")) {
                         pos_control.axisGoToRel(1, step);
+                        b.reload();
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 1")) {
                     if (b.Button("▼")) {
                         pos_control.axisGoToRel(2, step * -1);
+                        b.reload();
                     }
                     if (b.Button("▲")) {
                         pos_control.axisGoToRel(2, step);
+                        b.reload();
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 2")) {
                     if (b.Button("▼")) {
                         pos_control.axisGoToRel(3, step * -1);
+                        b.reload();
                     }
                     if (b.Button("▲")) {
                         pos_control.axisGoToRel(3, step);
+                        b.reload();
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Звено 3")) {
                     if (b.Button("▼")) {
                         pos_control.axisGoToRel(4, step * -1);
+                        b.reload();
                     }
                     if (b.Button("▲")) {
                         pos_control.axisGoToRel(4, step);
+                        b.reload();
                     }
                     b.endRow();
                 }
                 if (b.beginRow("Держатель")) {
                     if (b.Button("⊖")) {
                         pos_control.axisGoToRel(5, step * -1);
+                        b.reload();
                     }
                     if (b.Button("⊕")) {
                         pos_control.axisGoToRel(5, step);
+                        b.reload();
                     }
                     b.endRow();
                 }
                 if (b.Button("🛑 Стоп всё! 🛑")) {
                     pos_control.brake();
+                    b.reload();
                 }
                 b.endGroup();
             }
@@ -155,17 +166,19 @@ void build(sets::Builder &b) {
         case HOMING:
             if (b.Button("Сбросить координаты")) {
                 pos_control.reset();
+                b.reload();
             }
             if (b.Button("Идти в ноль")) {
                 for (uint8_t i = 1; i <= 5; i++) {
                     pos_control.axisGoTo(i, 0);
+                    b.reload();
                 }
             }
             break;
         case PROGRAMM:
             static enum ProgTabs: uint8_t {
-            EDIT,
-            RUN
+                EDIT,
+                RUN
             } prog_tabs = RUN;
             if (b.Tabs("Редактирование;Работа", &prog_tabs)) {
                 b.reload();
