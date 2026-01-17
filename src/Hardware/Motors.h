@@ -5,7 +5,7 @@
 
 namespace Motors {
     extern GStepper2<STEPPER2WIRE> steppers[5];
-    extern GPlanner2<STEPPER2WIRE, 5> planner;
+    // extern GPlanner2<STEPPER2WIRE, 5> planner;
     void setup();
     void tick();
 }

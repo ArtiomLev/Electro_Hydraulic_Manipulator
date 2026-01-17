@@ -11,7 +11,7 @@ GStepper2<STEPPER2WIRE> Motors::steppers[5] = {
     GStepper2<STEPPER2WIRE>(MOTOR5_STEP_PER_ROUND * DRV5_MICROSTEPPING, DRV5_STP, DRV5_DIR),
 };
 
-GPlanner2<STEPPER2WIRE, 5> Motors::planner;
+// GPlanner2<STEPPER2WIRE, 5> Motors::planner;
 
 void Motors::setup() {
     pinMode(DRV_EN, OUTPUT);
