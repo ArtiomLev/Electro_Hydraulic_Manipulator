@@ -90,6 +90,17 @@ void build(sets::Builder &b) {
         return;
     }
 
+    static enum ProgTabs: uint8_t {
+        EDIT,
+        RUN
+    } prog_tabs = RUN;
+    if (tab == PROGRAM) {
+        if (b.Tabs("Редактирование;Работа", &prog_tabs)) {
+            b.reload();
+            return;
+        }
+    }
+
     if (b.beginGroup("Координаты")) {
         if (b.beginRow()) {
             b.LabelFloat("База", pos_control.getPosition(1));
@@ -284,15 +295,6 @@ void build(sets::Builder &b) {
                 }
 
                 b.endGroup();
-            }
-
-            static enum ProgTabs: uint8_t {
-                EDIT,
-                RUN
-            } prog_tabs = RUN;
-            if (b.Tabs("Редактирование;Работа", &prog_tabs)) {
-                b.reload();
-                return;
             }
 
             switch (prog_tabs) {
