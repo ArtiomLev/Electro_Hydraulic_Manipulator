@@ -231,6 +231,33 @@ void build(sets::Builder &b) {
                     }
                     b.endRow();
                 }
+                // Кнопка удаления файла
+                if (b.Button("🗑️ Удалить файл", sets::Colors::Red)) {
+                    // Удаляем файл из файловой системы
+                    LittleFS.remove(selectedFile.c_str());
+                    // Обновляем список файлов
+                    fileList = WebPanel::panel.fs.flash.listDir();
+                    // Обновляем список .tbl файлов
+                    String updatedTblFiles = "";
+                    Text updatedFileListText(fileList);
+                    size_t updatedCount = updatedFileListText.count(';') + 1;
+                    for (size_t i = 0; i < updatedCount; i++) {
+                        String file = updatedFileListText.getSub(i, ';').toString();
+                        if (file.endsWith(".tbl")) {
+                            if (updatedTblFiles.length() > 0) updatedTblFiles += ";";
+                            updatedTblFiles += file;
+                        }
+                    }
+                    // Если есть другие .tbl файлы, выбираем первый, иначе устанавливаем дефолтный
+                    if (updatedTblFiles.length() > 0) {
+                        selectedFile = Text(updatedTblFiles).getSub(0, ';').toString();
+                        selectedFileIndex = 0;
+                    } else {
+                        selectedFile = "/program.tbl";
+                        selectedFileIndex = 0;
+                    }
+                    b.reload();
+                }
 
                 // Создание нового файла
                 static char newFileName[32] = "new_program";
