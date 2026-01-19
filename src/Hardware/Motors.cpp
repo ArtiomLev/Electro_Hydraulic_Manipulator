@@ -26,7 +26,7 @@ void Motors::setup() {
     // planner.setMaxSpeed(MAX_PLANNER_SPEED);
     // planner.setAcceleration(PLANNER_ACCELERATION);
 
-    for (auto stepper: steppers) {
+    for (auto &stepper: steppers) {
         stepper.setMaxSpeed(MAX_PLANNER_SPEED);
         stepper.setAcceleration(PLANNER_ACCELERATION);
     }
