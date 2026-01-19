@@ -1,11 +1,12 @@
 #include "PositionController.h"
+#include "config.h"
 
 #include "../Hardware/Motors.h"
 
 #include "KinematicLink/KinematicLink.h"
-MultistepLink multistep_link(8);
+MultistepLink multistep_link(DRV_MICROSTEPPING);
 DegStepLink deg_step_link(200, &multistep_link);
-ScrewLink screw_link(2, &deg_step_link);
+ScrewLink screw_link(0.7, &deg_step_link);
 
 PositionController::PositionController() : positions{
                                                0,
