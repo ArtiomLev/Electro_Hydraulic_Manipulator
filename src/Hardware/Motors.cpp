@@ -34,6 +34,6 @@ void Motors::setup() {
 
 void Motors::tick() {
     // planner.tick();
-    for (auto stepper: steppers)
+    for (auto &stepper: steppers)
         stepper.tick();
 }
