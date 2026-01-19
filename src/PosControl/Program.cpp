@@ -84,15 +84,16 @@ bool Program::insertPoint(uint16_t index, float pos1, float pos2, float pos3, fl
     // Вставляем новую точку
     newTable.append(index + 1, pos1, pos2, pos3, pos4, pos5);
 
-    // Копируем оставшиеся строки с обновленными номерами
+    // Копируем оставшиеся строки с новыми номерами
     for (uint16_t i = index; i < table.rows(); i++) {
         float p1, p2, p3, p4, p5;
         getPoint(i, p1, p2, p3, p4, p5);
         newTable.append(i + 2, p1, p2, p3, p4, p5);
     }
 
-    // Заменяем таблицу
+    // Заменяем таблицу и перестраиваем номера
     table = newTable;
+    renumber();
     return true;
 }
 
@@ -103,26 +104,28 @@ bool Program::removePoint(uint16_t index) {
     Table newTable;
     newTable.init(6, cell_t::Uint16, cell_t::Float, cell_t::Float, cell_t::Float, cell_t::Float, cell_t::Float);
 
-    // Копируем все строки кроме удаляемой
+    // Копируем все строки кроме удаляемой с правильными номерами
+    uint16_t newRowIndex = 0;
     for (uint16_t i = 0; i < table.rows(); i++) {
         if (i == index) continue;
 
         float p1, p2, p3, p4, p5;
         getPoint(i, p1, p2, p3, p4, p5);
-
-        // Перенумеровываем точки
-        uint16_t newIndex = i > index ? i : i + 1;
-        newTable.append(newIndex + 1, p1, p2, p3, p4, p5);
+        newTable.append(newRowIndex + 1, p1, p2, p3, p4, p5);
+        newRowIndex++;
     }
 
-    // Заменяем таблицу
+    // Заменяем таблицу и перестраиваем номера
     table = newTable;
+    renumber();
     return true;
 }
 
 bool Program::addPoint(float pos1, float pos2, float pos3, float pos4, float pos5) {
     uint16_t newIndex = table.rows();
-    return table.append(newIndex + 1, pos1, pos2, pos3, pos4, pos5);
+    bool result = table.append(newIndex + 1, pos1, pos2, pos3, pos4, pos5);
+    renumber();
+    return result;
 }
 
 void Program::clear() {
@@ -130,5 +133,13 @@ void Program::clear() {
 }
 
 String Program::toCSV() {
+    renumber(); // Убедимся, что номера в порядке перед экспортом
     return table.toCSV(';', 2);
+}
+
+// Новый метод для перестроения номеров точек по порядку
+void Program::renumber() {
+    for (uint16_t i = 0; i < table.rows(); i++) {
+        table[i][0] = static_cast<uint16_t>(i + 1);
+    }
 }

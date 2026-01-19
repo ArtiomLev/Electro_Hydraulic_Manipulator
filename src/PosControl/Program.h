@@ -6,6 +6,9 @@ class Program {
 private:
     Table table;
 
+    // Вспомогательный метод для перестроения номеров точек
+    void renumber();
+
 public:
     Program();
 
