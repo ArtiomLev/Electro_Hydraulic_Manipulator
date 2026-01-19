@@ -50,6 +50,30 @@ void loop() {
             Serial.print(stepper.pos);
             Serial.print("\t");
         }
+        Serial.print("|\t");
+        for (auto stepper: Motors::steppers) {
+            switch (stepper.getStatus()) {
+                case 0:
+                    Serial.print("Idle");
+                    break;
+                case 1:
+                    Serial.print("Run");
+                    break;
+                case 2:
+                    Serial.print("Run to P");
+                    break;
+                case 3:
+                    Serial.print("Run by S");
+                    break;
+                case 4:
+                    Serial.print("Stopping");
+                    break;
+                default:
+                    Serial.print("Unknown");
+                    break;
+            }
+            Serial.print("\t");
+        }
         Serial.println("");
     }*/
 
