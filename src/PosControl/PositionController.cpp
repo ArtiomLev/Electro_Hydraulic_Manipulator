@@ -25,7 +25,7 @@ PositionController::PositionController() : positions{
 }
 
 void PositionController::reset() {
-    for (uint8_t i = 1 ; i <= 5 ; i++) {
+    for (uint8_t i = 0 ; i < 5 ; i++) {
         positions[i] = 0;
         Motors::steppers[i].reset();
         Motors::steppers[i].setCurrent(0);
