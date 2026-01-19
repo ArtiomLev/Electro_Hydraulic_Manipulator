@@ -26,11 +26,9 @@ void setup() {
     Motors::setup();
 
     WebPanel::SetupPanel();
-
 }
 
 void loop() {
-
     Motors::tick();
 
     WebPanel::PanelTick();
