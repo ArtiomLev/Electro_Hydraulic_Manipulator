@@ -145,7 +145,7 @@ void build(sets::Builder &b) {
                     }
                     b.endRow();
                 }
-                if (b.beginRow("Держатель")) {
+                if (b.beginRow("Захват")) {
                     if (b.Button("⊖")) {
                         pos_control.axisGoToRel(5, step * -1);
                         b.reload();
