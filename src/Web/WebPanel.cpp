@@ -74,7 +74,7 @@ void build(sets::Builder &b) {
     static enum PanelTabs: uint8_t {
         MANUAL,
         HOMING,
-        PROGRAMM
+        PROGRAM
     } tab = MANUAL;
     if (b.Tabs("Ручное;Нулевая точка;Программа", &tab)) {
         b.reload();
@@ -175,7 +175,7 @@ void build(sets::Builder &b) {
                 }
             }
             break;
-        case PROGRAMM:
+        case PROGRAM:
             static enum ProgTabs: uint8_t {
                 EDIT,
                 RUN
