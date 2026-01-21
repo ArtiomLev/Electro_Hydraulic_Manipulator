@@ -68,7 +68,7 @@ float PositionController::getPosition(uint8_t axis) {
 }
 
 void PositionController::brake() {
-    for (auto stepper: Motors::steppers)
+    for (auto &stepper: Motors::steppers)
         stepper.brake();
     homing = false;
 }
